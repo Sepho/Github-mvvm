@@ -4,8 +4,7 @@ Sample app to show how to use the MVVM design pattern in addition with RxSwift/R
 
 Features:
 
-* MVVM Pattern
-[I'm an inline-style link](https://www.google.com)
+* MVVM Pattern: [MVVM pattern](https://msdn.microsoft.com/en-us/library/hh848246.aspx)
 * Reactive: [RxSwift/RxCocoa](https://github.com/ReactiveX/RxSwift)
 * Networking: [RxMoya](https://github.com/Moya/Moya)
 * JSON Parser: [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
