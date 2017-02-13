@@ -11,6 +11,17 @@ Features:
 * Dara Persistance: [Realm](https://github.com/realm/realm-cocoa)
 * Testing: [Quick/Nimble](https://github.com/Quick/Quick)
 
+Installation
+------------
+Project dependencies are built with Cocoapods. To build this project, clone or dowload and then run
+
+```rb
+pod install
+```
+
+When dependencies installation have finished, open GithubRepoExample.xcworkspace file
+
+
 ## License
 MIT License
 
