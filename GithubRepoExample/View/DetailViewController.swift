@@ -44,8 +44,8 @@ class DetailViewController: UIViewController {
     self.repositoryUpdated.text = vm.repositoryUpdated
     
     vm.repositoryImage
-      .bindTo(self.repositoryImageView.rx.image)
-      .addDisposableTo(disposeBag)
+      .bind(to: self.repositoryImageView.rx.image)
+      .disposed(by: disposeBag)
   }
   
 }

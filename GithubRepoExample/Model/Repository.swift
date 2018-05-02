@@ -12,22 +12,22 @@ import RealmSwift
 
 final class Repository: Object {
     
-    dynamic var id: Int = 0
-    dynamic var name: String = ""
-    dynamic var organization: String = ""
-    dynamic var url: String = ""
-    dynamic var avatar: String = ""
-    dynamic var stars: Int = 0
-    dynamic var forks: Int = 0
-    
-    // Extra info
-    dynamic var desc: String = ""
-    dynamic var created: String = ""
-    dynamic var updated: String = ""
-    dynamic var homepage: String = ""
-    dynamic var language: String = ""
-    
-    dynamic var lastViewed: NSDate? = nil
+  @objc dynamic var id: Int = 0
+  @objc dynamic var name: String = ""
+  @objc dynamic var organization: String = ""
+  @objc dynamic var url: String = ""
+  @objc dynamic var avatar: String = ""
+  @objc dynamic var stars: Int = 0
+  @objc dynamic var forks: Int = 0
+  
+  // Extra info
+  @objc dynamic var desc: String = ""
+  @objc dynamic var created: String = ""
+  @objc dynamic var updated: String = ""
+  @objc dynamic var homepage: String = ""
+  @objc dynamic var language: String = ""
+  
+  @objc dynamic var lastViewed: NSDate? = nil
     
 
     override static func indexedProperties() -> [String] {

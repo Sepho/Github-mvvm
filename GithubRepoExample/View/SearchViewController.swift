@@ -34,25 +34,25 @@ class SearchViewController: UIViewController {
       .rx
       .text
       .orEmpty
-      .bindTo(viewModel.searchQuery)
-      .addDisposableTo(disposeBag)
+      .bind(to: viewModel.searchQuery)
+      .disposed(by: disposeBag)
     
     viewModel
       .repositories
-      .bindTo(tableView
+      .bind(to: tableView
         .rx
         .items(cellIdentifier: RepositoryCell.cellIdentifier,
                cellType: RepositoryCell.self)) { row, viewModel, cell in                
                 cell.configureCell(viewModel: viewModel)
       }
-      .addDisposableTo(disposeBag)
+      .disposed(by: disposeBag)
     
     viewModel
       .showLoading
       .subscribe(onNext: { showing in
         self.showLoading(showing)
       })
-      .addDisposableTo(disposeBag)
+      .disposed(by: disposeBag)
  
     tableView
       .rx
@@ -60,8 +60,13 @@ class SearchViewController: UIViewController {
       .do(onNext: { indexPath in
         self.tableView.deselectRow(at: indexPath, animated: true)
       })
-      .bindTo(viewModel.selectedIndex)
-      .addDisposableTo(disposeBag)
+      .bind(to: viewModel.selectedIndex)
+      .disposed(by: disposeBag)
+    
+    tableView
+      .rx
+      .setDelegate(self)
+      .disposed(by: disposeBag)
     
     
     viewModel
@@ -69,7 +74,7 @@ class SearchViewController: UIViewController {
       .subscribe(onNext: { viewModel in
         self.performSegue(withIdentifier: "showRepository", sender: viewModel)
       })
-      .addDisposableTo(disposeBag)
+      .disposed(by: disposeBag)
   }
   
   private func showLoading(_ showing: Bool) {
@@ -87,5 +92,11 @@ class SearchViewController: UIViewController {
       
       detailViewController.viewModel = viewModel
     }
+  }
+}
+
+extension SearchViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 64
   }
 }

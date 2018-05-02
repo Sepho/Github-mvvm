@@ -10,11 +10,12 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Moya
+
 import SwiftyJSON
 
 protocol ServiceType {
   
-  var provider: RxMoyaProvider<GitHub> { get }
+  var provider: MoyaProvider<GitHub> { get }
   
   func downloadImage(from url: URL?)   -> Observable<UIImage?>
   func searchRepository(name: String) -> Observable<[Repository]>
@@ -22,9 +23,9 @@ protocol ServiceType {
 
 class GithubService: ServiceType {
   
-  var provider: RxMoyaProvider<GitHub>
+  var provider: MoyaProvider<GitHub>
   
-  init(provider: RxMoyaProvider<GitHub>) {
+  init(provider: MoyaProvider<GitHub>) {
     self.provider = provider
   }
   
@@ -45,7 +46,7 @@ class GithubService: ServiceType {
       .startWith(UIImage())
       .observeOn(MainScheduler.asyncInstance)
       .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-      .shareReplay(1)
+      .share(replay: 1)
   }
     
   func searchRepository(name: String) -> Observable<[Repository]> {
@@ -54,7 +55,9 @@ class GithubService: ServiceType {
     }
     
     return provider
+      .rx
       .request(.search(query: name))
+      .asObservable()
       .retry(3)
       .observeOn(MainScheduler.instance)
       .mapJSON()
@@ -66,6 +69,6 @@ class GithubService: ServiceType {
           Repository.fromJSON($0)
         }
       }
-      .catchErrorJustReturn([])
+    
   }
 }

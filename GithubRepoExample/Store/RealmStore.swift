@@ -32,9 +32,9 @@ class RealmStore {
     return Observable<[Repository]>.deferred {
       return Observable.create { observer in
         
-        let repositories = self.realm.objects(Repository.self).sorted(byProperty: "lastViewed", ascending: false)      
+        let repositories = self.realm.objects(Repository.self).sorted(byKeyPath: "lastViewed", ascending: false)      
         
-        self.notification = repositories.addNotificationBlock { changes in
+        self.notification = repositories.observe { changes in
           switch changes {
           case .initial(let repos):
             observer.onNext(Array(repos))
@@ -51,7 +51,7 @@ class RealmStore {
   }
   
   deinit {
-    notification?.stop()
+    notification?.invalidate()
   }
   
 }

@@ -9,13 +9,17 @@
 import Foundation
 import Moya
 
-let GithubProvider = RxMoyaProvider<GitHub>()
+let GithubProvider = MoyaProvider<GitHub>()
 
 public enum GitHub {
   case search(query: String)
 }
 
 extension GitHub: TargetType {
+  public var headers: [String : String]? {
+    return ["Content-Type": "Application/json"]
+  }
+  
   
   public var baseURL: URL {
     return URL(string: "https://api.github.com")!
@@ -32,13 +36,6 @@ extension GitHub: TargetType {
     return .get
   }
   
-  public var parameters: [String: Any]? {
-    switch self {
-    case .search(let query):
-        return ["q": query]
-    }
-  }
-  
   public var parameterEncoding: ParameterEncoding {
     return URLEncoding.default
   }
@@ -51,7 +48,10 @@ extension GitHub: TargetType {
   }
   
   public var task: Task {
-    return .request
+    switch self {
+    case .search(let query):
+      return .requestParameters(parameters: ["q": query], encoding: URLEncoding.default)
+    }
   }
   
 }

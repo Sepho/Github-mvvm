@@ -27,18 +27,29 @@ class HistoryViewController: UIViewController {
   }
   
   private func bindToRx(viewModel: HistoryViewModel) {
-        viewModel
-          .history?
-          .bindTo(tableView
-            .rx
-            .items(cellIdentifier: HistoryCell.cellIdentifier, cellType: HistoryCell.self)) {row, viewModel, cell in
-              cell.configureCell(viewModel: viewModel)
-          }
-          .addDisposableTo(disposeBag)    
+    viewModel
+      .history?
+      .bind(to: tableView
+        .rx
+        .items(cellIdentifier: HistoryCell.cellIdentifier, cellType: HistoryCell.self)) {row, viewModel, cell in
+          cell.configureCell(viewModel: viewModel)
+      }
+      .disposed(by: disposeBag)
+    
+    tableView
+      .rx
+      .setDelegate(self)
+      .disposed(by: disposeBag)
   }
   
   private func configureTableView() {
     tableView.tableFooterView = UIView()
     tableView.estimatedRowHeight = 64.0;
+  }
+}
+
+extension HistoryViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 64
   }
 }

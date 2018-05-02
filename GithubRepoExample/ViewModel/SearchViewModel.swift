@@ -78,6 +78,6 @@ class SearchViewModel {
         let store = RealmStore()
         return DetailViewModel(service: service, store: store, repository: repo)
       }
-      .shareReplay(1)
+      .share(replay: 1)
   }
 }

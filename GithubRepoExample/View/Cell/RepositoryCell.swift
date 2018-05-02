@@ -26,28 +26,28 @@ class RepositoryCell: UITableViewCell {
     
     viewModel.repositoryName
       .asObservable()
-      .bindTo(self.name.rx.text)
-      .addDisposableTo(disposeBag)
+      .bind(to: self.name.rx.text)
+      .disposed(by: disposeBag)
     
     viewModel.repositoryOrganization
       .asObservable()
-      .bindTo(self.organization.rx.text)
-      .addDisposableTo(disposeBag)
+      .bind(to: self.organization.rx.text)
+      .disposed(by: disposeBag)
     
     viewModel.repositoryStars
       .asObservable()
-      .bindTo(self.stars.rx.text)
-      .addDisposableTo(disposeBag)
+      .bind(to: self.stars.rx.text)
+      .disposed(by: disposeBag)
     
     viewModel.repositoryForks
       .asObservable()
-      .bindTo(self.forks.rx.text)
-      .addDisposableTo(disposeBag)
+      .bind(to: self.forks.rx.text)
+      .disposed(by: disposeBag)
     
     viewModel.repositoryImage
       .asObservable()
-      .bindTo(self.avatar.rx.image)      
-      .addDisposableTo(disposeBag)
+      .bind(to: self.avatar.rx.image)      
+      .disposed(by: disposeBag)
   }
 
 }
